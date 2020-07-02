@@ -1,0 +1,6 @@
+pytest
+pytest-django
+django
+selenium
+flake8
+isort
