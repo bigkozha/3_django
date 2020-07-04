@@ -5,3 +5,6 @@ def game(request):
     games_set = Game.objects.all()
     games = [game for game in games_set]
     return render(request, 'game.html', {'games' : games })
+
+def new_game(request):
+    return render(request, 'new_game.html')

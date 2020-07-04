@@ -2,10 +2,4 @@
   <p data-test="game">{{game.id}} {{game.is_active}}</p>
 {% endfor %}
 
-{% for guess in guesses%}
-  <p>{{ guess }}</p>
-{% endfor %}
-
-{% if games|length == 0  %}
-<a id="newgame" href="">Start a new game</a>
-{% endif %}
+<a data-test="game-new" href="/new_game">Start a new game</a>

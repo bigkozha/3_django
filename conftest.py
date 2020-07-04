@@ -22,14 +22,14 @@ def driver():
 
 @pytest.fixture()
 def default_games():
-    game1 = get_or_create_game(1, 100500)
-    game2 = get_or_create_game(2, 100)
-    game3 = get_or_create_game(3, 5000)
+    game1 = create_game(1, 100500)
+    game2 = create_game(2, 100)
+    game3 = create_game(3, 5000)
     games = [game1, game2, game3]
 
     return games
 
-def get_or_create_game(id, number):
+def create_game(id, number):
     instance, created = Game.objects.get_or_create(id=id, number=number)
     instance.is_active = True
     instance.save()
