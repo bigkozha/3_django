@@ -7,7 +7,7 @@ def test_index(live_server, driver, default_games):
     start_new_game_link = driver.find_element_by_css_selector(
         '[data-test="game-new"]')
 
-    assert len(games) == len(games)
+    assert len(games) == len(default_games)
     assert start_new_game_link.text == 'Start a new game'
 
 
@@ -21,3 +21,9 @@ def test_new_game(live_server, driver):
     assert element_form is not None
     assert field_to is not None
     assert button_new_game is not None
+
+def test_game(live_server, driver, default_games):
+    driver.get(live_server.url + '/game_detail/1')
+    guess_form = driver.find_element_by_css_selector('[data-test="guess_form"]')
+
+    assert guess_form is not None
