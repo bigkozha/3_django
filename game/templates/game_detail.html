@@ -11,6 +11,10 @@
         <input type="submit" id="submit" value="Make a guess">
     </form>
 
+    {% for guess in guesses %}
+    <p data-test="guess_item">{{ guess.time }} {{ guess.number }}</p>
+    {% endfor %}
+
 </body>
 
 </html>

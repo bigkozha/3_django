@@ -29,9 +29,25 @@ def default_games():
 
     return games
 
+@pytest.fixture()
+def default_guesses():
+    guess1 = create_guess(1, 200000)
+    guess2 = create_guess(1, 300000)
+    guess3 = create_guess(1, 400000)
+    guessses = [guess1, guess2, guess3]
+
+    return guessses
+
 def create_game(id, number):
     instance, created = Game.objects.get_or_create(id=id, number=number)
     instance.is_active = True
+    instance.save()
+
+    return instance
+
+
+def create_guess(game_id, number):
+    instance, created = Guess.objects.get_or_create(game_id=game_id, number=number)
     instance.save()
 
     return instance

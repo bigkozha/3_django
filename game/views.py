@@ -15,4 +15,6 @@ def new_game(request):
 
 def game_detail(request, game_id):
     game = get_object_or_404(Game, id=game_id)
-    return render(request, 'game_detail.html', {'game': game})
+    guesses = Guess.objects.filter(game__id=game_id)
+    
+    return render(request, 'game_detail.html', {'game': game, 'guesses': guesses})

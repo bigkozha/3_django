@@ -22,8 +22,11 @@ def test_new_game(live_server, driver):
     assert field_to is not None
     assert button_new_game is not None
 
-def test_game(live_server, driver, default_games):
+def test_game(live_server, driver, default_games, default_guesses):
     driver.get(live_server.url + '/game_detail/1')
     guess_form = driver.find_element_by_css_selector('[data-test="guess_form"]')
 
+    guess_items = driver.find_elements_by_css_selector('[data-test="guess_item"]')
+
     assert guess_form is not None
+    assert len(default_guesses) == len(guess_items)
