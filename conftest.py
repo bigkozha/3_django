@@ -6,6 +6,7 @@ from selenium.webdriver.chrome.options import Options
 
 from game.models import Game, Guess
 
+
 @pytest.yield_fixture(scope="session")
 def driver():
     if os.environ.get('GITHUB_ACTIONS'):
@@ -29,6 +30,7 @@ def default_games():
 
     return games
 
+
 @pytest.fixture()
 def default_guesses():
     guess1 = create_guess(1, 200000)
@@ -37,6 +39,7 @@ def default_guesses():
     guessses = [guess1, guess2, guess3]
 
     return guessses
+
 
 def create_game(id, number):
     instance, created = Game.objects.get_or_create(id=id, number=number)
@@ -47,7 +50,7 @@ def create_game(id, number):
 
 
 def create_guess(game_id, number):
-    instance, created = Guess.objects.get_or_create(game_id=game_id, number=number)
+    instance, created = Guess.objects.get_or_create(
+        game_id=game_id, number=number)
     instance.save()
-
     return instance

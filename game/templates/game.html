@@ -1,5 +1,5 @@
 {% for game in games %}
-  <p data-test="game">{{game.id}} {{game.is_active}}</p>
+  <p data-test="game"><a href="/game_detail/{{game.id}}">{{game.id}}</a> {{game.is_active}} {{game.from}} {{game.to}}</p>
 {% endfor %}
 
 <a data-test="game-new" href="/new_game">Start a new game</a>

@@ -1,7 +1,6 @@
-import pytest
-
 NUMBER_MAX_VALUE = 500000
 NUMBER_MIN_VALUE = 0
+
 
 def test_index(live_server, driver, default_games):
     driver.get(live_server.url)
@@ -42,8 +41,8 @@ def test_new_game_max_value_fail(live_server, driver):
     button_new_game = driver.find_element_by_css_selector(
         '[data-test="submit"]')
 
-    field_from.send_keys()
-    field_to.send_keys()
+    field_from.send_keys(NUMBER_MAX_VALUE)
+    field_to.send_keys(NUMBER_MIN_VALUE)
     button_new_game.click()
 
     assert 'error' in driver.current_url
@@ -106,7 +105,7 @@ def test_game_detail_win(live_server, driver, default_games, default_guesses):
     assert 'game_detail' in driver.current_url
 
     is_over = driver.find_element_by_css_selector('[data-test="is_over"]')
-    assert is_over.text == 'The game is over'
+    assert is_over.text == 'The game is over. You guessed right'
 
 
 def test_game_detail_redirect_error_string(live_server, driver, default_games, default_guesses):
@@ -121,6 +120,7 @@ def test_game_detail_redirect_error_string(live_server, driver, default_games, d
 
     button_make_guess.click()
     assert 'error' in driver.current_url
+
 
 def test_game_detail_redirect_error_max_value(live_server, driver, default_games, default_guesses):
     driver.get(live_server.url + '/game_detail/1')

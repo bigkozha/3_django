@@ -2,7 +2,7 @@
 <html>
 
 <body>
-
+    <p>{{game.from_number}} {{game.to_number}}</p>
     {% if game.is_active %}
     <h2>Enter guess number</h2>
     <form data-test="guess_form" method="POST">
@@ -11,7 +11,7 @@
         <input data-test="submit" type="submit" id="submit" value="Make a guess">
     </form>
     {% elif not game.is_active %}
-    <h2 data-test="is_over">The game is over</h2>
+    <h2 data-test="is_over">The game is over. You guessed right</h2>
     {% endif %}
 
     {% for guess in guesses %}
