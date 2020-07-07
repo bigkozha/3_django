@@ -3,13 +3,16 @@
 
 <body>
 
+    {% if game.is_active %}
     <h2>Enter guess number</h2>
-
-    <form action="" data-test="guess_form">
+    <form data-test="guess_form" method="POST">
         <label for="guess_number">Guess number:</label><br>
-        <input type="number" id="guess_number" name="guess_number"><br>
-        <input type="submit" id="submit" value="Make a guess">
+        <input data-test="guess_number" type="number" id="guess_number" name="guess_number"><br>
+        <input data-test="submit" type="submit" id="submit" value="Make a guess">
     </form>
+    {% elif not game.is_active %}
+    <h2 data-test="is_over">The game is over</h2>
+    {% endif %}
 
     {% for guess in guesses %}
     <p data-test="guess_item">{{ guess.time }} {{ guess.number }}</p>

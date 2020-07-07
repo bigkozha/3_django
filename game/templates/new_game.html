@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <body>
 
-<h2>Enter number range</h2>
+  <h2>Enter number range</h2>
 
-<form data-test="form" action="/new_game">
-  <label for="from">From:</label><br>
-  <input type="number" id="from" name="from"><br>
-  <label for="to">To:</label><br>
-  <input type="number" id="to" name="to"><br><br>
-  <input type="submit" id="submit" value="Start new game">
-</form> 
+  <form data-test="form" action="/new_game" method="POST">
+    <label for="from">From:</label><br>
+    <input data-test="from" type="number" id="from" name="from"><br>
+    <label for="to">To:</label><br>
+    <input data-test="to" type="number" id="to" name="to"><br><br>
+    <input data-test="submit" type="submit" id="submit" value="Start new game">
+  </form>
 
 </body>
+
 </html>
