@@ -9,8 +9,7 @@ NUMBER_MIN_VALUE = 0
 
 
 def game(request):
-    games_set = Game.objects.all()
-    games = [game for game in games_set]
+    games = Game.objects.all()
     return render(request, 'game.html', {'games': games})
 
 
