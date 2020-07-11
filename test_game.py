@@ -1,7 +1,3 @@
-NUMBER_MAX_VALUE = 500000
-NUMBER_MIN_VALUE = 0
-
-
 def test_index(live_server, driver, default_games):
     driver.get(live_server.url)
 
@@ -31,21 +27,6 @@ def test_new_game(live_server, driver):
 
     button_new_game.click()
     assert 'game_detail' in driver.current_url
-
-
-def test_new_game_max_value_fail(live_server, driver):
-    driver.get(live_server.url + '/new_game')
-
-    field_from = driver.find_element_by_css_selector('[data-test="from"]')
-    field_to = driver.find_element_by_css_selector('[data-test="to"]')
-    button_new_game = driver.find_element_by_css_selector(
-        '[data-test="submit"]')
-
-    field_from.send_keys(NUMBER_MAX_VALUE)
-    field_to.send_keys(NUMBER_MIN_VALUE)
-    button_new_game.click()
-
-    assert 'error' in driver.current_url
 
 
 def test_new_game_string_value_fail(live_server, driver):
@@ -117,20 +98,6 @@ def test_game_detail_redirect_error_string(live_server, driver, default_games, d
         '[data-test="submit"]')
 
     guess_number.send_keys('abc')
-
-    button_make_guess.click()
-    assert 'error' in driver.current_url
-
-
-def test_game_detail_redirect_error_max_value(live_server, driver, default_games, default_guesses):
-    driver.get(live_server.url + '/game_detail/1')
-
-    guess_number = driver.find_element_by_css_selector(
-        '[data-test="guess_number"]')
-    button_make_guess = driver.find_element_by_css_selector(
-        '[data-test="submit"]')
-
-    guess_number.send_keys(600000)
 
     button_make_guess.click()
     assert 'error' in driver.current_url

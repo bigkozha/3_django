@@ -4,9 +4,6 @@ from django.shortcuts import get_object_or_404, redirect, render, reverse
 
 from game.models import Game, Guess
 
-NUMBER_MAX_VALUE = 500000
-NUMBER_MIN_VALUE = 0
-
 
 def game(request):
     games = Game.objects.all()
@@ -69,8 +66,6 @@ def create_guess(game_id, number):
 
 
 def is_valid_number(number):
-    if number >= NUMBER_MAX_VALUE or number <= NUMBER_MIN_VALUE:
-        return False
     if number is None:
         return False
     return True
