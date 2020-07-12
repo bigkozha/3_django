@@ -1,7 +1,7 @@
-from django.urls import path
 from django.contrib import admin
-from accounts import views as acviews
+from django.urls import path
 
+from accounts import views as acviews
 from game import views
 
 urlpatterns = [

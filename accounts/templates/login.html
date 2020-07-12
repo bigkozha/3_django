@@ -5,7 +5,7 @@
     <form method="POST">
         {% csrf_token %}
         {{ form }}
-        <input type="submit"/>
+        <input data-test="submit" type="submit"/>
     </form>
 
 </html>

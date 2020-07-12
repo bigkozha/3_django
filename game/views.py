@@ -1,8 +1,10 @@
 from random import randrange
-from django.shortcuts import get_object_or_404, redirect, render, reverse
+
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render, reverse
 
 from game.models import Game, Guess
+
 
 @login_required
 def game(request):
@@ -34,6 +36,8 @@ def game_detail(request, game_id):
         try:
             guess_value = int(request.POST['guess_number'])
             create_guess(game.id, guess_value, request.user)
+        except ValueError:
+            return redirect(reverse('error', args=['it is not ur turn']), request)
         except:
             return redirect(reverse('error', args=['guess number was invalid']), request)
 
@@ -59,7 +63,7 @@ def create_guess(game_id, number, user):
     if not is_valid_number(number):
         raise Exception('number is not valid')
     if not is_correct_guesser(game_id, user):
-        raise Exception('user is not correct for turn')
+        raise ValueError('user is not correct for turn')
     try:
         instance = Guess.objects.create(game_id=game_id, number=number, user=user)
         return instance

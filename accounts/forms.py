@@ -1,15 +1,12 @@
 from django import forms
-from django.contrib.auth import (
-    authenticate,
-    get_user_model
-)
+from django.contrib.auth import authenticate, get_user_model
 
 User = get_user_model()
 
 
 class UserLoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField(widget=forms.TextInput(attrs={'data-test': 'username'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'data-test':'password'}))
 
     def clean(self, *args, **kwargs):
         username = self.cleaned_data.get('username')
