@@ -16,7 +16,7 @@
     {% endif %}
 
     {% for guess in guesses %}
-    <p data-test="guess_item">{{ guess.time }} {{ guess.number }}</p>
+    <p data-test="guess_item">{{ guess.time }} {{ guess.number }} {{ guess.user }}</p>
     {% endfor %}
 
 </body>

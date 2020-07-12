@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 from game.models import Game, Guess
 
+@login_required
 def game(request):
     games = Game.objects.all()
     return render(request, 'game.html', {'games': games})
@@ -32,7 +33,7 @@ def game_detail(request, game_id):
     if request.method == 'POST':
         try:
             guess_value = int(request.POST['guess_number'])
-            create_guess(game.id, guess_value)
+            create_guess(game.id, guess_value, request.user)
         except:
             return redirect(reverse('error', args=['guess number was invalid']), request)
 
@@ -54,11 +55,11 @@ def create_game(number, from_value, to_value):
         print('an error occured: create_game')
 
 
-def create_guess(game_id, number):
+def create_guess(game_id, number, user):
     if not is_valid_number(number):
         raise Exception('number is not valid')
     try:
-        instance = Guess.objects.create(game_id=game_id, number=number)
+        instance = Guess.objects.create(game_id=game_id, number=number, user=user)
         return instance
     except:
         print('an error occured: create_guess')

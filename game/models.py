@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Game(models.Model):
@@ -14,3 +15,4 @@ class Guess(models.Model):
     is_correct = models.BooleanField(default=False)
     game = models.ForeignKey(
         Game, on_delete=models.CASCADE, related_name='guesses')
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='guess_user', null=True)

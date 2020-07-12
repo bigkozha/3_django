@@ -1,4 +1,4 @@
-def test_index(live_server, driver, default_games):
+def test_index(live_server, driver, default_games, authenticated_browser):
     driver.get(live_server.url)
 
     games = driver.find_elements_by_css_selector('[data-test="game"]')
@@ -101,3 +101,14 @@ def test_game_detail_redirect_error_string(live_server, driver, default_games, d
 
     button_make_guess.click()
     assert 'error' in driver.current_url
+
+
+def test_with_authenticated_client(live_server, driver, user_client):
+    driver.get(live_server.url)
+
+    games = driver.find_elements_by_css_selector('[data-test="game"]')
+    start_new_game_link = driver.find_element_by_css_selector(
+        '[data-test="game-new"]')
+
+    assert len(games) == len(default_games)
+    assert start_new_game_link.text == 'Start a new game'

@@ -3,6 +3,8 @@ import os
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from django.contrib.auth.models import User
+from django.test import Client
 
 from game.models import Game, Guess
 
@@ -54,3 +56,15 @@ def create_guess(game_id, number):
         game_id=game_id, number=number)
     instance.save()
     return instance
+
+@pytest.fixture
+def user_client(client):
+    user = User.objects.create_user(
+        username='user',
+        password='pass',
+    )
+    c = Client()
+    response = c.post('/accounts/login/',  {'username': 'user', 'password': 'pass'})
+
+    print(response.content)
+    return user_client
