@@ -1,10 +1,10 @@
 from random import randrange
-
 from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.contrib.auth.decorators import login_required
 
 from game.models import Game, Guess
 
-
+@login_required
 def game(request):
     games = Game.objects.all()
     return render(request, 'game.html', {'games': games})

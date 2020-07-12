@@ -16,7 +16,8 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.messages',
-    'django.contrib.sessions'
+    'django.contrib.sessions',
+    'accounts',
 ]
 
 STATIC_URL = '/static/'
@@ -35,7 +36,8 @@ TEMPLATES = [
 ]
 
 MIDDLEWARE = [
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware'
+    'django.middleware.csrf.CsrfViewMiddleware',
 ]
