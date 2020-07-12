@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 
 from game.models import Game, Guess
 
-@login_required
 def game(request):
     games = Game.objects.all()
     return render(request, 'game.html', {'games': games})

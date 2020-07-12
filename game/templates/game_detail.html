@@ -6,6 +6,7 @@
     {% if game.is_active %}
     <h2>Enter guess number</h2>
     <form data-test="guess_form" method="POST">
+        {% csrf_token %}
         <label for="guess_number">Guess number:</label><br>
         <input data-test="guess_number" type="number" id="guess_number" name="guess_number"><br>
         <input data-test="submit" type="submit" id="submit" value="Make a guess">
