@@ -64,6 +64,7 @@ def user_client(client):
         username='user',
         password='pass',
     )
+    print('use variable user' + user.username)
     c = Client()
     response = c.post('accounts/login/',  {'username': 'user', 'password': 'pass'})
 

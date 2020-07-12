@@ -76,6 +76,7 @@ def is_valid_number(number):
         return False
     return True
 
+
 def is_correct_guesser(game_id, user):
     guesses = list(Guess.objects.filter(game_id=game_id))
     if len(guesses) > 0:
@@ -87,4 +88,3 @@ def is_correct_guesser(game_id, user):
 
 def error(request, text):
     return render(request, 'error.html', {'text': text})
-

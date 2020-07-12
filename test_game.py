@@ -1,9 +1,12 @@
 def test_index(live_server, driver, default_games, user_client):
     driver.get(live_server.url)
 
-    username = driver.find_element_by_css_selector('[data-test="username"]').send_keys("user")
-    password = driver.find_element_by_css_selector('[data-test="password"]').send_keys("pass")
-    submit = driver.find_element_by_css_selector('[data-test="submit"]').click()
+    username = driver.find_element_by_css_selector('[data-test="username"]')
+    username.send_keys("user")
+    password = driver.find_element_by_css_selector('[data-test="password"]')
+    password.send_keys("pass")
+    submit = driver.find_element_by_css_selector('[data-test="submit"]')
+    submit.click()
 
     games = driver.find_elements_by_css_selector('[data-test="game"]')
     start_new_game_link = driver.find_element_by_css_selector(

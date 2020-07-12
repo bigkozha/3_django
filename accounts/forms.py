@@ -6,7 +6,7 @@ User = get_user_model()
 
 class UserLoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={'data-test': 'username'}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'data-test':'password'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'data-test': 'password'}))
 
     def clean(self, *args, **kwargs):
         username = self.cleaned_data.get('username')
@@ -23,12 +23,13 @@ class UserLoginForm(forms.Form):
 
         return super(UserLoginForm, self).clean(*args, **kwargs)
 
+
 class UserRegisterForm(forms.ModelForm):
-    password=forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
-        model=User
-        fields=[
+        model = User
+        fields = [
             'username',
             'password'
         ]

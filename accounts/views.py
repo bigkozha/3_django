@@ -1,7 +1,6 @@
-from django.contrib.auth import authenticate, get_user_model, login, logout
-from django.shortcuts import get_object_or_404, redirect, render, reverse
-
-from .forms import UserLoginForm, UserRegisterForm
+from .forms import UserLoginForm
+from django.shortcuts import redirect, render
+from django.contrib.auth import authenticate, login
 
 
 def login_view(request):
