@@ -12,6 +12,7 @@ def game(request):
     return render(request, 'game.html', {'games': games})
 
 
+@login_required
 def new_game(request):
     if request.method == 'POST':
         try:
@@ -27,6 +28,7 @@ def new_game(request):
     return render(request, 'new_game.html')
 
 
+@login_required
 def game_detail(request, game_id):
     game = get_object_or_404(Game, id=game_id)
 

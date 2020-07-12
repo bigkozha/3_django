@@ -16,8 +16,15 @@ def test_index(live_server, driver, default_games, user_client):
     assert start_new_game_link.text == 'Start a new game'
 
 
-def test_new_game(live_server, driver):
+def test_new_game(live_server, driver, user_client):
     driver.get(live_server.url + '/new_game')
+
+    username = driver.find_element_by_css_selector('[data-test="username"]')
+    username.send_keys("user")
+    password = driver.find_element_by_css_selector('[data-test="password"]')
+    password.send_keys("pass")
+    submit = driver.find_element_by_css_selector('[data-test="submit"]')
+    submit.click()
 
     element_form = driver.find_element_by_css_selector('[data-test="form"]')
     field_from = element_form.find_element_by_css_selector(
@@ -36,8 +43,15 @@ def test_new_game(live_server, driver):
     assert 'game_detail' in driver.current_url
 
 
-def test_new_game_string_value_fail(live_server, driver):
+def test_new_game_string_value_fail(live_server, driver, user_client):
     driver.get(live_server.url + '/new_game')
+
+    username = driver.find_element_by_css_selector('[data-test="username"]')
+    username.send_keys("user")
+    password = driver.find_element_by_css_selector('[data-test="password"]')
+    password.send_keys("pass")
+    submit = driver.find_element_by_css_selector('[data-test="submit"]')
+    submit.click()
 
     field_from = driver.find_element_by_css_selector('[data-test="from"]')
     field_to = driver.find_element_by_css_selector('[data-test="to"]')
@@ -51,8 +65,15 @@ def test_new_game_string_value_fail(live_server, driver):
     assert 'error' in driver.current_url
 
 
-def test_game_detail(live_server, driver, default_games, default_guesses):
+def test_game_detail(live_server, driver, default_games, default_guesses, user_client):
     driver.get(live_server.url + '/game_detail/1')
+
+    username = driver.find_element_by_css_selector('[data-test="username"]')
+    username.send_keys("user")
+    password = driver.find_element_by_css_selector('[data-test="password"]')
+    password.send_keys("pass")
+    submit = driver.find_element_by_css_selector('[data-test="submit"]')
+    submit.click()
 
     guess_form = driver.find_element_by_css_selector(
         '[data-test="guess_form"]')
@@ -72,8 +93,15 @@ def test_game_detail(live_server, driver, default_games, default_guesses):
     assert 'game_detail' in driver.current_url
 
 
-def test_game_detail_win(live_server, driver, default_games, default_guesses):
+def test_game_detail_win(live_server, driver, default_games, default_guesses, user_client):
     driver.get(live_server.url + '/game_detail/1')
+
+    username = driver.find_element_by_css_selector('[data-test="username"]')
+    username.send_keys("user")
+    password = driver.find_element_by_css_selector('[data-test="password"]')
+    password.send_keys("pass")
+    submit = driver.find_element_by_css_selector('[data-test="submit"]')
+    submit.click()
 
     guess_form = driver.find_element_by_css_selector(
         '[data-test="guess_form"]')
@@ -96,8 +124,15 @@ def test_game_detail_win(live_server, driver, default_games, default_guesses):
     assert is_over.text == 'The game is over. You guessed right'
 
 
-def test_game_detail_redirect_error_string(live_server, driver, default_games, default_guesses):
+def test_game_detail_redirect_error_string(live_server, driver, default_games, default_guesses, user_client):
     driver.get(live_server.url + '/game_detail/1')
+
+    username = driver.find_element_by_css_selector('[data-test="username"]')
+    username.send_keys("user")
+    password = driver.find_element_by_css_selector('[data-test="password"]')
+    password.send_keys("pass")
+    submit = driver.find_element_by_css_selector('[data-test="submit"]')
+    submit.click()
 
     guess_number = driver.find_element_by_css_selector(
         '[data-test="guess_number"]')
@@ -106,5 +141,38 @@ def test_game_detail_redirect_error_string(live_server, driver, default_games, d
 
     guess_number.send_keys('abc')
 
+    button_make_guess.click()
+    assert 'error' in driver.current_url
+
+
+def test_game_detail_same_user_fail(live_server, driver, default_games, default_guesses, user_client):
+    driver.get(live_server.url + '/game_detail/1')
+
+    username = driver.find_element_by_css_selector('[data-test="username"]')
+    username.send_keys("user")
+    password = driver.find_element_by_css_selector('[data-test="password"]')
+    password.send_keys("pass")
+    submit = driver.find_element_by_css_selector('[data-test="submit"]')
+    submit.click()
+    
+    guess_number = driver.find_element_by_css_selector(
+        '[data-test="guess_number"]')
+    button_make_guess = driver.find_element_by_css_selector(
+        '[data-test="submit"]')
+
+    guess_number.send_keys(1)
+    button_make_guess.click()
+    assert 'game_detail' in driver.current_url
+
+    guess_form = driver.find_element_by_css_selector(
+        '[data-test="guess_form"]')
+    guess_items = driver.find_elements_by_css_selector(
+        '[data-test="guess_item"]')
+    guess_number = driver.find_element_by_css_selector(
+        '[data-test="guess_number"]')
+    button_make_guess = driver.find_element_by_css_selector(
+        '[data-test="submit"]')
+
+    guess_number.send_keys(1)
     button_make_guess.click()
     assert 'error' in driver.current_url
