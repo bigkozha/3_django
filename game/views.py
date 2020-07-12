@@ -58,6 +58,8 @@ def create_game(number, from_value, to_value):
 def create_guess(game_id, number, user):
     if not is_valid_number(number):
         raise Exception('number is not valid')
+    if not is_correct_guesser(game_id, user):
+        raise Exception('user is not correct for turn')
     try:
         instance = Guess.objects.create(game_id=game_id, number=number, user=user)
         return instance
@@ -70,6 +72,15 @@ def is_valid_number(number):
         return False
     return True
 
+def is_correct_guesser(game_id, user):
+    guesses = list(Guess.objects.filter(game_id=game_id))
+    if len(guesses) > 0:
+        if guesses[-1].user is not None:
+            if guesses[-1].user.id == user.id:
+                return False
+    return True
+
 
 def error(request, text):
     return render(request, 'error.html', {'text': text})
+
