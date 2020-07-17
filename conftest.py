@@ -1,6 +1,8 @@
 import os
 
 import pytest
+from django.contrib.auth.models import User
+from django.test import Client
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -54,3 +56,24 @@ def create_guess(game_id, number):
         game_id=game_id, number=number)
     instance.save()
     return instance
+
+
+@pytest.fixture
+def user_client(client, live_server, driver):
+    user = User.objects.create_user(
+        username='user',
+        password='pass',
+    )
+    print('use variable user' + user.username)
+    c = Client()
+    c.post('accounts/login/',  {'username': 'user', 'password': 'pass'})
+
+    driver.get(live_server.url)
+    username = driver.find_element_by_css_selector('[data-test="username"]')
+    username.send_keys("user")
+    password = driver.find_element_by_css_selector('[data-test="password"]')
+    password.send_keys("pass")
+    submit = driver.find_element_by_css_selector('[data-test="submit"]')
+    submit.click()
+
+    return user_client

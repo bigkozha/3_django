@@ -6,6 +6,7 @@
   <h2>Enter number range</h2>
 
   <form data-test="form" action="/new_game" method="POST">
+    {% csrf_token %}
     <label for="from">From:</label><br>
     <input data-test="from" type="number" id="from" name="from"><br>
     <label for="to">To:</label><br>

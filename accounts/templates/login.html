@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input data-test="submit" type="submit"/>
+    </form>
+
+</html>
